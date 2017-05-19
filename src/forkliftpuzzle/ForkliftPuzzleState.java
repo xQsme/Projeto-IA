@@ -1,23 +1,17 @@
-package eightpuzzle;
+package forkliftpuzzle;
 
 import agent.Action;
 import agent.State;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class EightPuzzleState extends State implements Cloneable {
+public class ForkliftPuzzleState extends State implements Cloneable {
 
-    static final int[][] goalMatrix = {{0, 1, 2},
-    {3, 4, 5},
-    {6, 7, 8}};
-    static final int[] linesfinalMatrix = {0, 0, 0, 1, 1, 1, 2, 2, 2};
-    static final int[] colsfinalMatrix = {0, 1, 2, 0, 1, 2, 0, 1, 2};
-    public static final int SIZE = 3;
     private int[][] matrix;
-    private int lineBlank;
-    private int columnBlank;
+    private int lineForklift;
+    private int columnForklift;
 
-    public EightPuzzleState(int[][] matrix) {
+    public ForkliftPuzzleState(int[][] matrix) {
         this.matrix = new int[matrix.length][matrix.length];
 
         for (int i = 0; i < matrix.length; i++) {
@@ -29,6 +23,10 @@ public class EightPuzzleState extends State implements Cloneable {
                 }
             }
         }
+    }
+
+    public boolean isGoal(){
+        return columnForklift == matrix.length-1;
     }
 
     public void executeAction(Action action) {
@@ -54,7 +52,7 @@ public class EightPuzzleState extends State implements Cloneable {
 
     /*
      * In the next four methods we don't verify if the actions are valid.
-     * This is done in method executeActions in class EightPuzzleProblem.
+     * This is done in method executeActions in class ForkliftPuzzleProblem.
      * Doing the verification in these methods would imply that a clone of the
      * state was created whether the operation could be executed or not.
      */
@@ -129,11 +127,11 @@ public class EightPuzzleState extends State implements Cloneable {
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof EightPuzzleState)) {
+        if (!(other instanceof ForkliftPuzzleState)) {
             return false;
         }
 
-        EightPuzzleState o = (EightPuzzleState) other;
+        ForkliftPuzzleState o = (ForkliftPuzzleState) other;
         if (matrix.length != o.matrix.length) {
             return false;
         }
@@ -161,25 +159,25 @@ public class EightPuzzleState extends State implements Cloneable {
 
     @Override
     public Object clone() {
-        return new EightPuzzleState(matrix);
+        return new ForkliftPuzzleState(matrix);
     }
     //Listeners
-    private transient ArrayList<EightPuzzleListener> listeners = new ArrayList<EightPuzzleListener>(3);
+    private transient ArrayList<ForkliftPuzzleListener> listeners = new ArrayList<ForkliftPuzzleListener>(3);
 
-    public synchronized void removeListener(EightPuzzleListener l) {
+    public synchronized void removeListener(ForkliftPuzzleListener l) {
         if (listeners != null && listeners.contains(l)) {
             listeners.remove(l);
         }
     }
 
-    public synchronized void addListener(EightPuzzleListener l) {
+    public synchronized void addListener(ForkliftPuzzleListener l) {
         if (!listeners.contains(l)) {
             listeners.add(l);
         }
     }
 
-    public void firePuzzleChanged(EightPuzzleEvent pe) {
-        for (EightPuzzleListener listener : listeners) {
+    public void firePuzzleChanged(ForkliftPuzzleEvent pe) {
+        for (ForkliftPuzzleListener listener : listeners) {
             listener.puzzleChanged(null);
         }
     }

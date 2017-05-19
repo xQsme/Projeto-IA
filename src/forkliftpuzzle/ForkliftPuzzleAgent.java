@@ -1,27 +1,27 @@
-package eightpuzzle;
+package forkliftpuzzle;
 
 import agent.Agent;
 import java.io.File;
 import java.io.IOException;
 
-public class EightPuzzleAgent extends Agent<EightPuzzleState>{
+public class ForkliftPuzzleAgent extends Agent<ForkliftPuzzleState>{
     
-    protected EightPuzzleState initialEnvironment;    
+    protected ForkliftPuzzleState initialEnvironment;
     
-    public EightPuzzleAgent(EightPuzzleState environemt) {
+    public ForkliftPuzzleAgent(ForkliftPuzzleState environemt) {
         super(environemt);
-        initialEnvironment = (EightPuzzleState) environemt.clone();
+        initialEnvironment = (ForkliftPuzzleState) environemt.clone();
         heuristics.add(new HeuristicTileDistance());
         heuristics.add(new HeuristicTilesOutOfPlace());
         heuristic = heuristics.get(0);
     }
             
-    public EightPuzzleState resetEnvironment(){
-        environment = (EightPuzzleState) initialEnvironment.clone();
+    public ForkliftPuzzleState resetEnvironment(){
+        environment = (ForkliftPuzzleState) initialEnvironment.clone();
         return environment;
     }
 
-    public EightPuzzleState readInitialStateFromFile(File file) throws IOException {
+    public ForkliftPuzzleState readInitialStateFromFile(File file) throws IOException {
         java.util.Scanner scanner = new java.util.Scanner(file);
         int size=scanner.nextInt();
         int[][] matrix = new int [size][size];
@@ -40,7 +40,7 @@ public class EightPuzzleAgent extends Agent<EightPuzzleState>{
         if(linha != -1)
             matrix[linha][size-1]=10;
 
-        initialEnvironment = new EightPuzzleState(matrix);
+        initialEnvironment = new ForkliftPuzzleState(matrix);
         resetEnvironment();
 
         return environment;

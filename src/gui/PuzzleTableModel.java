@@ -1,15 +1,15 @@
  package gui;
 
-import eightpuzzle.EightPuzzleEvent;
-import eightpuzzle.EightPuzzleListener;
-import eightpuzzle.EightPuzzleState;
+import forkliftpuzzle.ForkliftPuzzleEvent;
+import forkliftpuzzle.ForkliftPuzzleListener;
+import forkliftpuzzle.ForkliftPuzzleState;
 import javax.swing.table.AbstractTableModel;
 
-public class PuzzleTableModel extends AbstractTableModel implements EightPuzzleListener{
+public class PuzzleTableModel extends AbstractTableModel implements ForkliftPuzzleListener {
 
-    private EightPuzzleState puzzle;
+    private ForkliftPuzzleState puzzle;
 
-    public PuzzleTableModel(EightPuzzleState puzzle) {
+    public PuzzleTableModel(ForkliftPuzzleState puzzle) {
         if(puzzle == null){
             throw new NullPointerException("Puzzle cannot be null");
         }
@@ -29,7 +29,7 @@ public class PuzzleTableModel extends AbstractTableModel implements EightPuzzleL
         return new Integer(puzzle.getTileValue(row, col));
     }
 
-    public void puzzleChanged(EightPuzzleEvent pe){
+    public void puzzleChanged(ForkliftPuzzleEvent pe){
         fireTableDataChanged();
         try{
             Thread.sleep(500);
@@ -37,7 +37,7 @@ public class PuzzleTableModel extends AbstractTableModel implements EightPuzzleL
         }
     }
 
-    public void setPuzzle(EightPuzzleState puzzle){
+    public void setPuzzle(ForkliftPuzzleState puzzle){
         if(puzzle == null){
           throw new NullPointerException("Puzzle cannot be null");
         }

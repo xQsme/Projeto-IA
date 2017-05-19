@@ -1,10 +1,10 @@
-package eightpuzzle;
+package forkliftpuzzle;
 
 import agent.Heuristic;
 
-public class HeuristicTileDistance extends Heuristic<EightPuzzleProblem, EightPuzzleState>{
+public class HeuristicTileDistance extends Heuristic<ForkliftPuzzleProblem, ForkliftPuzzleState>{
 
-    public double compute(EightPuzzleState state){
+    public double compute(ForkliftPuzzleState state){
         return state.computeTileDistance();       
         
     }
