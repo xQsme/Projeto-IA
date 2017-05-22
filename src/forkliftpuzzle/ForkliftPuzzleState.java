@@ -18,8 +18,8 @@ public class ForkliftPuzzleState extends State implements Cloneable {
             for (int j = 0; j < matrix.length; j++) {
                 this.matrix[i][j] = matrix[i][j];
                 if (this.matrix[i][j] == 0) {
-                    lineBlank = i;
-                    columnBlank = j;
+                    lineForklift = i;
+                    columnForklift = j;
                 }
             }
         }
@@ -34,20 +34,20 @@ public class ForkliftPuzzleState extends State implements Cloneable {
         firePuzzleChanged(null);
     }
 
-    public boolean canMoveUp() {
-        return lineBlank != 0;
+    public boolean canMoveUp(int line) {
+        return line != 0;
     }
 
-    public boolean canMoveRight() {
-        return columnBlank != matrix.length - 1;
+    public boolean canMoveRight(int column) {
+        return column != matrix.length - 1;
     }
 
-    public boolean canMoveDown() {
-        return lineBlank != matrix.length - 1;
+    public boolean canMoveDown(int line) {
+        return line != matrix.length - 1;
     }
 
-    public boolean canMoveLeft() {
-        return columnBlank != 0;
+    public boolean canMoveLeft(int column) {
+        return column != 0;
     }
 
     /*
@@ -56,24 +56,36 @@ public class ForkliftPuzzleState extends State implements Cloneable {
      * Doing the verification in these methods would imply that a clone of the
      * state was created whether the operation could be executed or not.
      */
-    public void moveUp() {
-        matrix[lineBlank][columnBlank] = matrix[--lineBlank][columnBlank];
-        matrix[lineBlank][columnBlank] = 0;
+    public void moveUp(int line, int column) {
+        matrix[line][column] = matrix[line+1][column];
+        matrix[line+1][column] = 0;
+        if(line+1 == lineForklift && column == columnForklift){
+            lineForklift=line;
+        }
     }
 
-    public void moveRight() {
-        matrix[lineBlank][columnBlank] = matrix[lineBlank][++columnBlank];
-        matrix[lineBlank][columnBlank] = 0;
+    public void moveRight(int line, int column) {
+        matrix[line][column] = matrix[line][column-1];
+        matrix[line][column-1] = 0;
+        if(line == lineForklift && column-1 == columnForklift){
+            columnForklift=column;
+        }
     }
 
-    public void moveDown() {
-        matrix[lineBlank][columnBlank] = matrix[++lineBlank][columnBlank];
-        matrix[lineBlank][columnBlank] = 0;
+    public void moveDown(int line, int column) {
+        matrix[line][column] = matrix[line-1][column];
+        matrix[line-1][column] = 0;
+        if(line-1 == lineForklift && column == columnForklift){
+            lineForklift=line;
+        }
     }
 
-    public void moveLeft() {
-        matrix[lineBlank][columnBlank] = matrix[lineBlank][--columnBlank];
-        matrix[lineBlank][columnBlank] = 0;
+    public void moveLeft(int line, int column) {
+        matrix[line][column] = matrix[line][column+1];
+        matrix[line][column+1] = 0;
+        if(line == lineForklift && column+1 == columnForklift){
+            columnForklift=column;
+        }
     }
 
     public int getNumLines() {
@@ -84,35 +96,19 @@ public class ForkliftPuzzleState extends State implements Cloneable {
         return matrix[0].length;
     }
 
-    public double computeTilesOutOfPlace() {
+    public double computeOccupiedTiles() {
         double h = 0;
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix.length; j++) {
-                if (matrix[i][j] != 0 &&
-                        matrix[i][j] != goalMatrix[i][j]) {
+        for (int i = 0; i < getNumColumns(); i++) {
+                if (matrix[lineForklift][i] != 0) {
                     h++;
                 }
-            }
         }
         return h;
     }
     
-    public double computeTileDistance() {
-        double h = 0;
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix.length; j++) {
-                if (matrix[i][j] != 0) {
-                    h+=Math.abs(i-linesfinalMatrix[matrix[i][j]])+
-                       Math.abs(j-colsfinalMatrix[matrix[i][j]]);
-                }
-            }
-        }
-        return h;
+    public double computeDistance() {
+        return matrix.length - columnForklift;
     }
-    
-    
-    
-    
 
     public int getTileValue(int line, int column) {
         if (!isValidPosition(line, column)) {

@@ -5,7 +5,7 @@ import agent.Heuristic;
 public class HeuristicTilesOutOfPlace extends Heuristic<ForkliftPuzzleProblem, ForkliftPuzzleState> {
 
     public double compute(ForkliftPuzzleState state) {
-        return state.computeTilesOutOfPlace();
+        return state.computeOccupiedTiles();
         
     }
 
