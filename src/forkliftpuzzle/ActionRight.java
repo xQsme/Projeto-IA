@@ -8,12 +8,12 @@ public class ActionRight extends Action<ForkliftPuzzleState>{
         super(1);
     }
 
-    public void execute(ForkliftPuzzleState state){
-        state.moveRight();
+    public void execute(ForkliftPuzzleState state, int line, int column){
+        state.moveRight(line, column);
         state.setAction(this);
     }
 
-    public boolean isValid(ForkliftPuzzleState state){
-        return state.canMoveRight();
+    public boolean isValid(ForkliftPuzzleState state, int column){
+        return state.canMoveRight(column);
     }
 }

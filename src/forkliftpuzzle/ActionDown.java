@@ -8,12 +8,12 @@ public class ActionDown extends Action<ForkliftPuzzleState>{
         super(1);
     }
 
-    public void execute(ForkliftPuzzleState state){
-        state.moveDown();
+    public void execute(ForkliftPuzzleState state, int line, int column){
+        state.moveDown(line, column);
         state.setAction(this);
     }
 
-    public boolean isValid(ForkliftPuzzleState state){
-        return state.canMoveDown();
+    public boolean isValid(ForkliftPuzzleState state, int line){
+        return state.canMoveDown(line);
     }
 }

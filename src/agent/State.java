@@ -10,7 +10,7 @@ public abstract class State{
     public State(){
     }
 
-    public abstract void executeAction(Action action);
+    public abstract void executeAction(Action action, int line, int column);
     
     public Action getAction(){
         return action;

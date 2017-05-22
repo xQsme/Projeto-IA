@@ -1,25 +1,34 @@
 package forkliftpuzzle;
 
 import agent.Action;
+import agent.Piece;
 import agent.State;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ForkliftPuzzleState extends State implements Cloneable {
 
-    private int[][] matrix;
+    private Piece[][] matrix;
     private int lineForklift;
     private int columnForklift;
 
     public ForkliftPuzzleState(int[][] matrix) {
-        this.matrix = new int[matrix.length][matrix.length];
+        this.matrix = new Piece[matrix.length][matrix.length];
 
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++) {
-                this.matrix[i][j] = matrix[i][j];
-                if (this.matrix[i][j] == 0) {
+                this.matrix[i][j] = new Piece(matrix[i][j]);
+                if (matrix[i][j] == 1) {
                     lineForklift = i;
                     columnForklift = j;
+                }
+                if(matrix[i][j] == 0)
+                if(matrix[i][j] == 1 || matrix[i][j]%2 == 0){
+                    this.matrix[i][j].addAction(new ActionLeft());
+                    this.matrix[i][j].addAction(new ActionRight());
+                }else{
+                    this.matrix[i][j].addAction(new ActionUp());
+                    this.matrix[i][j].addAction(new ActionDown());
                 }
             }
         }
@@ -29,25 +38,25 @@ public class ForkliftPuzzleState extends State implements Cloneable {
         return columnForklift == matrix.length-1;
     }
 
-    public void executeAction(Action action) {
-        action.execute(this);
+    public void executeAction(Action action, int line, int column) {
+        action.execute(this, line, column);
         firePuzzleChanged(null);
     }
 
-    public boolean canMoveUp(int line) {
-        return line != 0;
+    public boolean canMoveUp(int line, int column) {
+        return line != 0 && matrix[line-1][column].getType() == 0;
     }
 
-    public boolean canMoveRight(int column) {
-        return column != matrix.length - 1;
+    public boolean canMoveRight(int line, int column) {
+        return column != matrix[0].length - 1 && matrix[line][column+1].getType() == 0;
     }
 
-    public boolean canMoveDown(int line) {
-        return line != matrix.length - 1;
+    public boolean canMoveDown(int line, int column) {
+        return line != matrix.length - 1 && matrix[line+1][column].getType() == 0;
     }
 
-    public boolean canMoveLeft(int column) {
-        return column != 0;
+    public boolean canMoveLeft(int line, int column) {
+        return column != 0 && matrix[line][column-1].getType() == 0;
     }
 
     /*
@@ -57,34 +66,72 @@ public class ForkliftPuzzleState extends State implements Cloneable {
      * state was created whether the operation could be executed or not.
      */
     public void moveUp(int line, int column) {
-        matrix[line][column] = matrix[line+1][column];
-        matrix[line+1][column] = 0;
-        if(line+1 == lineForklift && column == columnForklift){
-            lineForklift=line;
+        if(line+1 != matrix.length -1) {
+            if (!matrix[line+1][column].equals(matrix[line][column])) {
+                matrix[line-1][column] = matrix[line][column];
+                matrix[line][column] = new Piece(0);
+            } else {
+                matrix[line-1][column] = matrix[line][column];
+                matrix[line][column] = matrix[line+1][column];
+                matrix[line+1][column] = new Piece(0);
+            }
+        }else{
+            matrix[line-1][column] = matrix[line][column];
+            matrix[line][column] = new Piece(0);
         }
     }
 
     public void moveRight(int line, int column) {
-        matrix[line][column] = matrix[line][column-1];
-        matrix[line][column-1] = 0;
-        if(line == lineForklift && column-1 == columnForklift){
-            columnForklift=column;
+        if(column-1 != 0) {
+            if (!matrix[line][column-1].equals(matrix[line][column])) {
+                matrix[line][column+1] = matrix[line][column];
+                matrix[line][column] = new Piece(0);
+            } else {
+                matrix[line][column+1] = matrix[line][column];
+                matrix[line][column] = matrix[line][column-1];
+                matrix[line][column-1] = new Piece(0);
+            }
+        }else{
+            matrix[line][column+1] = matrix[line][column];
+            matrix[line][column] = new Piece(0);
+        }
+        if (line == lineForklift && column == columnForklift) {
+            columnForklift = column+1;
         }
     }
 
     public void moveDown(int line, int column) {
-        matrix[line][column] = matrix[line-1][column];
-        matrix[line-1][column] = 0;
-        if(line-1 == lineForklift && column == columnForklift){
-            lineForklift=line;
+        if(line-1 != 0) {
+            if (!matrix[line-1][column].equals(matrix[line][column])) {
+                matrix[line+1][column] = matrix[line][column];
+                matrix[line][column] = new Piece(0);
+            } else {
+                matrix[line+1][column] = matrix[line][column];
+                matrix[line][column] = matrix[line-1][column];
+                matrix[line-1][column] = new Piece(0);
+            }
+        }else{
+            matrix[line+1][column] = matrix[line][column];
+            matrix[line][column] = new Piece(0);
         }
     }
 
     public void moveLeft(int line, int column) {
-        matrix[line][column] = matrix[line][column+1];
-        matrix[line][column+1] = 0;
-        if(line == lineForklift && column+1 == columnForklift){
-            columnForklift=column;
+        if(column+1 != matrix[0].length) {
+            if (!matrix[line][column+1].equals(matrix[line][column])) {
+                matrix[line][column-1] = matrix[line][column];
+                matrix[line][column] = new Piece(0);
+            } else {
+                matrix[line][column-1] = matrix[line][column];
+                matrix[line][column] = matrix[line][column+1];
+                matrix[line][column+1] = new Piece(0);
+            }
+        }else{
+            matrix[line][column-1] = matrix[line][column];
+            matrix[line][column] = new Piece(0);
+        }
+        if (line == lineForklift && column == columnForklift) {
+            columnForklift = column-1;
         }
     }
 
@@ -99,7 +146,7 @@ public class ForkliftPuzzleState extends State implements Cloneable {
     public double computeOccupiedTiles() {
         double h = 0;
         for (int i = 0; i < getNumColumns(); i++) {
-                if (matrix[lineForklift][i] != 0) {
+                if (matrix[lineForklift][i].getType() != 0) {
                     h++;
                 }
         }
@@ -114,7 +161,7 @@ public class ForkliftPuzzleState extends State implements Cloneable {
         if (!isValidPosition(line, column)) {
             throw new IndexOutOfBoundsException("Invalid position!");
         }
-        return matrix[line][column];
+        return matrix[line][column].getType();
     }
 
     public boolean isValidPosition(int line, int column) {
@@ -155,6 +202,12 @@ public class ForkliftPuzzleState extends State implements Cloneable {
 
     @Override
     public Object clone() {
+        int[][] matrix = new int[this.matrix.length-1][this.matrix[0].length-1];
+        for(int i = 0; i<this.matrix.length-1; i++){
+            for(int j = 0; j<this.matrix[0].length-1; j++){
+                matrix[i][j]=this.matrix[i][j].getType();
+            }
+        }
         return new ForkliftPuzzleState(matrix);
     }
     //Listeners

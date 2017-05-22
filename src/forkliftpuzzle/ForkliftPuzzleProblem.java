@@ -8,8 +8,6 @@ import java.util.List;
 
 public class ForkliftPuzzleProblem extends Problem<ForkliftPuzzleState> {
     
-    private ForkliftPuzzleState goalState;
-    
     public ForkliftPuzzleProblem(ForkliftPuzzleState initialState) {
         super(initialState, new ArrayList<Action>());
         
