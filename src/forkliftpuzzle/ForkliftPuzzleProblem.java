@@ -1,20 +1,30 @@
 package forkliftpuzzle;
 
 import agent.Action;
+import agent.Piece;
 import agent.Problem;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 public class ForkliftPuzzleProblem extends Problem<ForkliftPuzzleState> {
-    
+
+    ArrayList<Piece> pieces;
+
     public ForkliftPuzzleProblem(ForkliftPuzzleState initialState) {
         super(initialState, new ArrayList<Action>());
-        
-        actions.add(new ActionUp());
-        actions.add(new ActionRight());
-        actions.add(new ActionDown());
-        actions.add(new ActionLeft());
+         pieces= new ArrayList<>();
+         pieces= initialState.getPieces();
+         for(Piece piece : pieces){
+             if(piece.getType() < 1)
+                 if(piece.getType() == 1 || piece.getType()%2 == 0){
+                     actions.add(new ActionLeft(piece));
+                     actions.add(new ActionRight(piece));
+                 }else{
+                     actions.add(new ActionUp(piece));
+                     actions.add(new ActionDown(piece));
+                 }
+        }
     }
     
     @Override
@@ -31,6 +41,10 @@ public class ForkliftPuzzleProblem extends Problem<ForkliftPuzzleState> {
                 ForkliftPuzzleState successor = (ForkliftPuzzleState) state.clone();
                 a.execute(successor);
                 successors.add(successor);
+                if(successor.isGoal()){
+                    System.out.println("Solved");
+                    break;
+                }
             }
         }
         return successors;

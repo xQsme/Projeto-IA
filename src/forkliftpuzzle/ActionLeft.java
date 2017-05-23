@@ -1,19 +1,20 @@
 package forkliftpuzzle;
 
 import agent.Action;
+import agent.Piece;
 
 public class ActionLeft extends Action<ForkliftPuzzleState>{
 
-    public ActionLeft(){
-        super(1);
+    public ActionLeft(Piece piece){
+        super(1, piece);
     }
 
-    public void execute(ForkliftPuzzleState state, int line, int column){
-        state.moveLeft(line,column);
+    public void execute(ForkliftPuzzleState state){
+        state.moveLeft(piece);
         state.setAction(this);
     }
 
-    public boolean isValid(ForkliftPuzzleState state, int column){
-        return state.canMoveLeft(column);
+    public boolean isValid(ForkliftPuzzleState state){
+        return state.canMoveLeft(piece);
     }
 }

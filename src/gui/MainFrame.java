@@ -33,7 +33,7 @@ import searchmethods.SearchMethod;
 
 public class MainFrame extends JFrame {
 
-    private int[][] initialMatrix = {{0,0,0,0,0,0},{0,2,2,2,0,0},{1,0,0,3,0,10},{0,3,0,2,0,2},{0,0,0,3,0,0},
+    private int[][] initialMatrix = {{0,0,0,0,0,0},{0,2,2,2,0,0},{1,0,0,3,0,-1},{0,3,0,2,0,2},{0,0,0,3,0,0},
             {0,0,0,0,0,0}};
     private ForkliftPuzzleAgent agent = new ForkliftPuzzleAgent(new ForkliftPuzzleState(initialMatrix));
     private JComboBox comboBoxSearchMethods;

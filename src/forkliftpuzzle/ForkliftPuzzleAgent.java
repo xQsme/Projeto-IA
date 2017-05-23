@@ -38,7 +38,7 @@ public class ForkliftPuzzleAgent extends Agent<ForkliftPuzzleState>{
             scanner.nextLine();
         }
         if(linha != -1)
-            matrix[linha][size-1]=10;
+            matrix[linha][size-1]=-1;
 
         initialEnvironment = new ForkliftPuzzleState(matrix);
         resetEnvironment();
