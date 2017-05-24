@@ -7,10 +7,11 @@ import java.util.ArrayList;
  */
 public class Piece {
 
-    private int type, line, column;
+    private int type, id, line, column;
 
-    public Piece(int type, int line, int column) {
+    public Piece(int type, int id, int line, int column) {
         this.type = type;
+        this.id = id;
         this.line = line;
         this.column = column;
     }
@@ -35,7 +36,7 @@ public class Piece {
         this.column = column;
     }
 
-    public boolean equals(Piece piece){
-        return type==piece.getType();
+    public int getId() {
+        return id;
     }
 }

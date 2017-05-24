@@ -2,7 +2,7 @@ package forkliftpuzzle;
 
 import agent.Heuristic;
 
-public class HeuristicTilesOutOfPlace extends Heuristic<ForkliftPuzzleProblem, ForkliftPuzzleState> {
+public class HeuristicOccupiedTiles extends Heuristic<ForkliftPuzzleProblem, ForkliftPuzzleState> {
 
     public double compute(ForkliftPuzzleState state) {
         return state.computeOccupiedTiles();

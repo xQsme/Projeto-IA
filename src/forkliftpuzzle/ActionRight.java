@@ -5,16 +5,17 @@ import agent.Piece;
 
 public class ActionRight extends Action<ForkliftPuzzleState>{
 
-    public ActionRight(Piece piece){
-        super(1, piece);
+    public ActionRight(int line, int column){
+        super(1, line, column);
     }
 
     public void execute(ForkliftPuzzleState state){
-        state.moveRight(piece);
+        state.moveRight(line, column);
+        column=column+1;
         state.setAction(this);
     }
 
     public boolean isValid(ForkliftPuzzleState state){
-        return state.canMoveRight(piece);
+        return state.canMoveRight(line, column);
     }
 }
