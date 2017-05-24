@@ -26,7 +26,7 @@ public class PuzzleTileCellRenderer extends JLabel implements TableCellRenderer 
         if (((Integer) value).intValue() == 0) {
             setIcon(loader.getIcon(Properties.EMPTY_IMAGE));
         } else {
-            setIcon(loader.getIcon(((Integer) value).intValue() + Properties.IMAGE_SUFFIX));
+            setIcon(loader.getIcon(((Integer) value).intValue()%10 + Properties.IMAGE_SUFFIX));
         }
 
         return this;

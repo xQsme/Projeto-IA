@@ -35,7 +35,7 @@ public class MainFrame extends JFrame {
 
     private int[][] initialMatrix = {{0,0,0,0,0,0},{0,2,2,2,0,0},{1,0,0,3,0,-1},{0,3,0,2,0,2},{0,0,0,3,0,0},
             {0,0,0,0,0,0}};
-    private ForkliftPuzzleAgent agent = new ForkliftPuzzleAgent(new ForkliftPuzzleState(initialMatrix));
+    private ForkliftPuzzleAgent agent = new ForkliftPuzzleAgent(new ForkliftPuzzleState(initialMatrix, true));
     private JComboBox comboBoxSearchMethods;
     private JComboBox comboBoxHeuristics;
     private JLabel labelSearchParameter = new JLabel("limit/beam size:");

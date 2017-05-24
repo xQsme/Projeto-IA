@@ -19,12 +19,12 @@ public class ForkliftPuzzleProblem extends Problem<ForkliftPuzzleState> {
          pieces= new ArrayList<>();
          pieces= initialState.getPieces();
          for(Piece piece : pieces){
-             if(piece.getType() == 1 || piece.getType()%2 == 0){
-                 actions.add(new ActionLeft(piece.getLine(), piece.getColumn()));
-                 actions.add(new ActionRight(piece.getLine(), piece.getColumn()));
+             if(piece.getId() == 1 || piece.getId()%10%2 == 0){
+                 actions.add(new ActionLeft(piece.getId()));
+                 actions.add(new ActionRight(piece.getId()));
              }else{
-                 actions.add(new ActionUp(piece.getLine(), piece.getColumn()));
-                 actions.add(new ActionDown(piece.getLine(), piece.getColumn()));
+                 actions.add(new ActionUp(piece.getId()));
+                 actions.add(new ActionDown(piece.getId()));
              }
         }
     }
@@ -42,7 +42,7 @@ public class ForkliftPuzzleProblem extends Problem<ForkliftPuzzleState> {
             if (a.isValid(state)) {
                 ForkliftPuzzleState successor = (ForkliftPuzzleState) state.clone();
                 a.execute(successor);
-                System.out.println(successor);
+                //System.out.println(successor);
                 successors.add(successor);
             }
         }

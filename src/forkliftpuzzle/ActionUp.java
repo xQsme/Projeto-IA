@@ -5,17 +5,16 @@ import agent.Piece;
 
 public class ActionUp extends Action<ForkliftPuzzleState>{
 
-    public ActionUp(int line, int column){
-        super(1, line, column);
+    public ActionUp(int id){
+        super(1, id);
     }
 
     public void execute(ForkliftPuzzleState state){
-        state.moveUp(line, column);
-        line=line-1;
+        state.moveUp(id);
         state.setAction(this);
     }
 
     public boolean isValid(ForkliftPuzzleState state){
-        return state.canMoveUp(line, column);
+        return state.canMoveUp(id);
     }
 }

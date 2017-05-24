@@ -7,33 +7,10 @@ import java.util.ArrayList;
  */
 public class Piece {
 
-    private int type, id, line, column;
+    private int id;
 
-    public Piece(int type, int id, int line, int column) {
-        this.type = type;
+    public Piece(int id) {
         this.id = id;
-        this.line = line;
-        this.column = column;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public int getLine() {
-        return line;
-    }
-
-    public void setLine(int line) {
-        this.line = line;
-    }
-
-    public int getColumn() {
-        return column;
-    }
-
-    public void setColumn(int column) {
-        this.column = column;
     }
 
     public int getId() {
