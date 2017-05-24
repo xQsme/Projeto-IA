@@ -13,6 +13,7 @@ public class ForkliftPuzzleAgent extends Agent<ForkliftPuzzleState>{
         initialEnvironment = (ForkliftPuzzleState) environemt.clone();
         heuristics.add(new HeuristicTileDistance());
         heuristics.add(new HeuristicOccupiedTiles());
+        heuristics.add(new HeuristicOcupiedAndDistance());
         heuristic = heuristics.get(0);
     }
             

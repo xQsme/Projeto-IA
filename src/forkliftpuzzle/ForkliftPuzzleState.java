@@ -15,8 +15,8 @@ public class ForkliftPuzzleState extends State implements Cloneable {
         this.matrix = new int[matrix.length][matrix[0].length];
         int[] count = new int[11];
         if(first) {
-            for (int i = 0; i < matrix.length; i++) {
-                for (int j = 0; j < matrix[0].length; j++) {
+            for (int i = 0; i < getNumLines(); i++) {
+                for (int j = 0; j < getNumColumns(); j++) {
                     if(matrix[i][j] < 2) {
                         this.matrix[i][j] = matrix[i][j];
                         if (matrix[i][j] == 1) {
@@ -29,8 +29,8 @@ public class ForkliftPuzzleState extends State implements Cloneable {
                 }
             }
         }else{
-            for (int i = 0; i < matrix.length; i++) {
-                for (int j = 0; j < matrix[0].length; j++) {
+            for (int i = 0; i < getNumLines(); i++) {
+                for (int j = 0; j < getNumColumns(); j++) {
                     this.matrix[i][j] = matrix[i][j];
                     if (matrix[i][j] == 1) {
                         lineForklift = i;
@@ -42,7 +42,7 @@ public class ForkliftPuzzleState extends State implements Cloneable {
     }
 
     public boolean isGoal(){
-        return columnForklift == matrix.length-1;
+        return columnForklift == getNumColumns()-1;
     }
 
     public void executeAction(Action action) {
@@ -57,13 +57,13 @@ public class ForkliftPuzzleState extends State implements Cloneable {
 
     public boolean canMoveRight(int id) {
         int position[]=findById(id);
-        return position[1] != matrix[0].length - 1 && (matrix[position[0]][position[1]+1]
+        return position[1] != getNumColumns() - 1 && (matrix[position[0]][position[1]+1]
                     == 0 || (matrix[position[0]][position[1]] == 1 && matrix[position[0]][position[1]+1] == -1));
     }
 
     public boolean canMoveDown(int id) {
         int position[]=findById(id);
-        return position[0] != matrix.length - 1 && matrix[position[0]+1][position[1]] == 0;
+        return position[0] != getNumLines() - 1 && matrix[position[0]+1][position[1]] == 0;
     }
 
     public boolean canMoveLeft(int id) {
@@ -80,8 +80,8 @@ public class ForkliftPuzzleState extends State implements Cloneable {
     public void moveUp(int id) {
         int position[]=findById(id);
         int count=1;
-        for(int i = 1; i < matrix[0].length; i++){
-            if(position[0]+i < matrix.length){
+        for(int i = 1; i < getNumLines(); i++){
+            if(position[0]+i < getNumLines()){
                 if(matrix[position[0]+i][position[1]]%10 == matrix[position[0]][position[1]]%10)
                     count++;
                 else
@@ -100,7 +100,7 @@ public class ForkliftPuzzleState extends State implements Cloneable {
     public void moveRight(int id) {
         int position[]=findById(id); //1,3
         int count=1;
-        for(int i = 1; i < matrix[0].length; i++){
+        for(int i = 1; i < getNumColumns(); i++){
             if(position[1]-i >= 0){
                 if(matrix[position[0]][position[1]-i]%10 == matrix[position[0]][position[1]]%10)
                     count++;
@@ -123,7 +123,7 @@ public class ForkliftPuzzleState extends State implements Cloneable {
     public void moveDown(int id) {
         int position[]=findById(id);
         int count=1;
-        for(int i = 1; i < matrix.length; i++){
+        for(int i = 1; i < getNumLines(); i++){
             if(position[0]-i >= 0){
                 if(matrix[position[0]-i][position[1]]%10 == matrix[position[0]][position[1]]%10)
                     count++;
@@ -143,8 +143,8 @@ public class ForkliftPuzzleState extends State implements Cloneable {
     public void moveLeft(int id) {
         int position[]=findById(id);
         int count=1;
-        for(int i = 1; i < matrix[0].length; i++){
-            if(position[1]+i < matrix[0].length){
+        for(int i = 1; i < getNumColumns(); i++){
+            if(position[1]+i < getNumColumns()){
                 if(matrix[position[0]][position[1]+i]%10 == matrix[position[0]][position[1]]%10)
                     count++;
                 else
@@ -171,6 +171,10 @@ public class ForkliftPuzzleState extends State implements Cloneable {
         return matrix[0].length;
     }
 
+    public double computeOccupiedAndDistance(){
+        return computeOccupiedTiles()+computeDistance();
+    }
+
     public double computeOccupiedTiles() {
         double h = 0;
         for (int i = lineForklift+1; i < getNumColumns(); i++) {
@@ -182,18 +186,18 @@ public class ForkliftPuzzleState extends State implements Cloneable {
     }
     
     public double computeDistance() {
-        return matrix.length - columnForklift;
+        return getNumLines() - columnForklift;
     }
 
     public int getTileValue(int line, int column) {
-        if (!(line >= 0 && line < matrix.length && column >= 0 && column < matrix[0].length)) {
+        if (!(line >= 0 && line < getNumLines() && column >= 0 && column < getNumColumns())) {
             throw new IndexOutOfBoundsException("Invalid position!");
         }
         return matrix[line][column];
     }
 
     public boolean isValidPosition(int line, int column) {
-        return line >= 0 && line < matrix.length && column >= 0 && column < matrix[0].length;
+        return line >= 0 && line < getNumLines() && column >= 0 && column < getNumColumns();
     }
 
     @Override
@@ -203,7 +207,7 @@ public class ForkliftPuzzleState extends State implements Cloneable {
         }
 
         ForkliftPuzzleState o = (ForkliftPuzzleState) other;
-        if (matrix.length != o.matrix.length) {
+        if (getNumLines() != o.getNumLines()) {
             return false;
         }
 
@@ -218,9 +222,9 @@ public class ForkliftPuzzleState extends State implements Cloneable {
     @Override
     public String toString() {
         StringBuilder buffer = new StringBuilder();
-        for (int i = 0; i < matrix.length; i++) {
+        for (int i = 0; i < getNumLines(); i++) {
             buffer.append('\n');
-            for (int j = 0; j < matrix.length; j++) {
+            for (int j = 0; j < getNumColumns(); j++) {
                 buffer.append(matrix[i][j]);
                 buffer.append(' ');
             }
@@ -255,8 +259,8 @@ public class ForkliftPuzzleState extends State implements Cloneable {
 
     public ArrayList<Integer> getPieces() {
         ArrayList<Integer> pieces=new ArrayList<>();
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[0].length; j++) {
+        for (int i = 0; i < getNumLines(); i++) {
+            for (int j = 0; j < getNumColumns(); j++) {
                 if(matrix[i][j] > 0)
                     pieces.add(matrix[i][j]);
             }
@@ -265,8 +269,8 @@ public class ForkliftPuzzleState extends State implements Cloneable {
     }
 
     private int[] findById(int id){
-        for (int i = 0; i < matrix.length; i++){
-            for(int j = 0; j < matrix[0].length; j++){
+        for (int i = 0; i < getNumLines(); i++){
+            for(int j = 0; j < getNumColumns(); j++){
                 if(matrix[i][j] == id){
                     return new int[]{i, j};
                 }

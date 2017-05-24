@@ -11,6 +11,6 @@ public class HeuristicOccupiedTiles extends Heuristic<ForkliftPuzzleProblem, For
 
     @Override
     public String toString() {
-        return "Tiles out of place";
+        return "Occupied tiles to goal";
     }
 }
