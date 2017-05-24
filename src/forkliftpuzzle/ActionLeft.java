@@ -1,7 +1,6 @@
 package forkliftpuzzle;
 
 import agent.Action;
-import agent.Piece;
 
 public class ActionLeft extends Action<ForkliftPuzzleState>{
 

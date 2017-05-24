@@ -1,7 +1,6 @@
 package forkliftpuzzle;
 
 import agent.Action;
-import agent.Piece;
 import agent.State;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -254,12 +253,12 @@ public class ForkliftPuzzleState extends State implements Cloneable {
         }
     }
 
-    public ArrayList<Piece> getPieces() {
-        ArrayList<Piece> pieces=new ArrayList<>();
+    public ArrayList<Integer> getPieces() {
+        ArrayList<Integer> pieces=new ArrayList<>();
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[0].length; j++) {
                 if(matrix[i][j] > 0)
-                    pieces.add(new Piece(matrix[i][j]));
+                    pieces.add(matrix[i][j]);
             }
         }
         return pieces;

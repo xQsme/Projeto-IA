@@ -1,30 +1,28 @@
 package forkliftpuzzle;
 
 import agent.Action;
-import agent.Piece;
 import agent.Problem;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static java.lang.Thread.sleep;
 
 public class ForkliftPuzzleProblem extends Problem<ForkliftPuzzleState> {
 
-    ArrayList<Piece> pieces;
+    ArrayList<Integer> pieces;
 
     public ForkliftPuzzleProblem(ForkliftPuzzleState initialState) {
         super(initialState, new ArrayList<Action>());
-         pieces= new ArrayList<>();
-         pieces= initialState.getPieces();
-         for(Piece piece : pieces){
-             if(piece.getId() == 1 || piece.getId()%10%2 == 0){
-                 actions.add(new ActionLeft(piece.getId()));
-                 actions.add(new ActionRight(piece.getId()));
+         pieces = new ArrayList<>();
+         pieces = initialState.getPieces();
+         for(int piece : pieces){
+             if(piece == 1 || piece%10%2 == 0){
+                 actions.add(new ActionLeft(piece));
+                 actions.add(new ActionRight(piece));
              }else{
-                 actions.add(new ActionUp(piece.getId()));
-                 actions.add(new ActionDown(piece.getId()));
+                 actions.add(new ActionUp(piece));
+                 actions.add(new ActionDown(piece));
              }
         }
     }
