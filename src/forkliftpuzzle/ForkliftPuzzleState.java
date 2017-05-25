@@ -80,16 +80,7 @@ public class ForkliftPuzzleState extends State implements Cloneable {
      */
     public void moveUp(int id) {
         int position[]=findById(id);
-        int count=1;
-        int max=(matrix[position[0]][position[1]]%10-1)/2;
-        for(int i = 1; i < getNumLines(); i++){
-            if(position[0]+i < getNumLines() && matrix[position[0]+i][position[1]]%10 == matrix[position[0]][position[1]]%10 && count != max){
-                count++;
-            }else{
-                break;
-            }
-        }
-        int i;
+        int i, count=(matrix[position[0]][position[1]]%10-1)/2;
         for(i = 0; i < count; i++){
             matrix[position[0]-1+i][position[1]] = matrix[position[0]+i][position[1]];
         }
@@ -98,17 +89,9 @@ public class ForkliftPuzzleState extends State implements Cloneable {
 
     public void moveRight(int id) {
         int position[]=findById(id);
-        int count=1;
-        int max=matrix[position[0]][position[1]]%10/2;
-        for(int i = 1; i < getNumColumns(); i++){
-            if(position[1]-i >= 0 && matrix[position[0]][position[1]-i]%10 ==
-                        matrix[position[0]][position[1]]%10 && count != max){
-                count++;
-            }else{
-                break;
-            }
-        }
-        int i;
+        int i, count=Math.round(matrix[position[0]][position[1]]%10/2);
+        if(count == 0)
+            count++;
         for(i = 0; i < count; i++){
             matrix[position[0]][position[1]+1-i] = matrix[position[0]][position[1]-i];
         }
@@ -120,17 +103,7 @@ public class ForkliftPuzzleState extends State implements Cloneable {
 
     public void moveDown(int id) {
         int position[]=findById(id);
-        int count=1;
-        int max=(matrix[position[0]][position[1]]%10-1)/2;
-        for(int i = 1; i < getNumLines(); i++){
-            if(position[0]-i >= 0 && matrix[position[0]-i][position[1]]%10 ==
-                        matrix[position[0]][position[1]]%10 && count != max){
-                count++;
-            }else{
-                break;
-            }
-        }
-        int i;
+        int i, count=(matrix[position[0]][position[1]]%10-1)/2;
         for(i = 0; i < count; i++){
             matrix[position[0]+1-i][position[1]] = matrix[position[0]-i][position[1]];
         }
@@ -139,17 +112,9 @@ public class ForkliftPuzzleState extends State implements Cloneable {
 
     public void moveLeft(int id) {
         int position[]=findById(id);
-        int count=1;
-        int max=matrix[position[0]][position[1]]%10/2;
-        for(int i = 1; i < getNumColumns(); i++){
-            if(position[1]+i < getNumColumns() && matrix[position[0]][position[1]+i]%10 ==
-                                        matrix[position[0]][position[1]]%10 && count != max){
-                count++;
-            }else{
-                break;
-            }
-        }
-        int i;
+        int i, count=matrix[position[0]][position[1]]%10/2;
+        if(count == 0)
+            count++;
         for(i = 0; i < count; i++){
             matrix[position[0]][position[1]-1+i] = matrix[position[0]][position[1]+i];
         }
