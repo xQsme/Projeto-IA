@@ -48,7 +48,7 @@ public class ForkliftPuzzleProblem extends Problem<ForkliftPuzzleState> {
     }
     
     @Override
-    public double computePathCost(List<Action> path) {
+    public int computePathCost(List<Action> path) {
         return path.size();
     }
     

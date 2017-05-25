@@ -6,7 +6,6 @@ public class HeuristicSizeObjectsOnPath extends Heuristic<ForkliftPuzzleProblem,
 
     public double compute(ForkliftPuzzleState state) {
         return state.computeSizeObjectsOnPath();
-        
     }
 
     @Override

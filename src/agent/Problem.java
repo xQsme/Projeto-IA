@@ -39,8 +39,8 @@ public abstract class Problem <S extends State>{
         this.heuristic = heuristic;
     }
     
-    public double computePathCost (List<Action> path){
-        double cost=0;
+    public int computePathCost (List<Action> path){
+        int cost=0;
         for (Action a: path){
             cost+=a.getCost();
         }

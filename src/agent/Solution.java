@@ -17,7 +17,7 @@ public class Solution {
         }
     }
 
-    public double getCost(){
+    public int getCost(){
         return problem.computePathCost(actions);
     }
 

@@ -95,7 +95,7 @@ public class Agent<E extends State> {
         if (solution == null) {
             sb.append("No solution found\n");
         } else {
-            sb.append("Solution cost: " + Double.toString(solution.getCost()) + "\n");
+            sb.append("Solution cost: " + Integer.toString(solution.getCost()) + "\n");
         }
         sb.append("Num of expanded nodes: " + searchMethod.getStatistics().numExpandedNodes + "\n");
         sb.append("Max frontier size: " + searchMethod.getStatistics().maxFrontierSize + "\n");

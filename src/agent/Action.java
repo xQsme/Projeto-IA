@@ -2,10 +2,10 @@ package agent;
 
 
 public abstract class Action <S extends State>{
-    private double cost;
+    private int cost;
     protected int id;
 
-    public Action(double cost, int id){
+    public Action(int cost, int id){
         this.cost = cost;
         this.id = id;
     }
