@@ -1,11 +1,10 @@
 package gui;
 
 import utils.ImageLoader;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
+
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
+import java.awt.*;
 
 public class PuzzleTileCellRenderer extends JLabel implements TableCellRenderer {
 

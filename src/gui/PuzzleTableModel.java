@@ -1,9 +1,10 @@
  package gui;
 
-import forkliftpuzzle.ForkliftPuzzleEvent;
-import forkliftpuzzle.ForkliftPuzzleListener;
-import forkliftpuzzle.ForkliftPuzzleState;
-import javax.swing.table.AbstractTableModel;
+ import forkliftpuzzle.ForkliftPuzzleEvent;
+ import forkliftpuzzle.ForkliftPuzzleListener;
+ import forkliftpuzzle.ForkliftPuzzleState;
+
+ import javax.swing.table.AbstractTableModel;
 
 public class PuzzleTableModel extends AbstractTableModel implements ForkliftPuzzleListener {
 

@@ -3,8 +3,9 @@ package searchmethods;
 import agent.Problem;
 import agent.Solution;
 import agent.State;
-import java.util.List;
 import utils.NodeLinkedList;
+
+import java.util.List;
 
 public class DepthFirstSearch extends GraphSearch<NodeLinkedList> {
 

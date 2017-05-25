@@ -1,8 +1,9 @@
 package agent;
 
+import searchmethods.Node;
+
 import java.util.LinkedList;
 import java.util.List;
-import searchmethods.Node;
 
 public class Solution {
     private Problem problem;

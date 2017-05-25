@@ -2,11 +2,10 @@ package forkliftpuzzle;
 
 import agent.Action;
 import agent.Problem;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
-import static java.lang.Thread.sleep;
 
 public class ForkliftPuzzleProblem extends Problem<ForkliftPuzzleState> {
 

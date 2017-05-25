@@ -3,10 +3,11 @@ package searchmethods;
 import agent.Problem;
 import agent.Solution;
 import agent.State;
+import utils.NodeCollection;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import utils.NodeCollection;
 
 public abstract class GraphSearch<L extends NodeCollection> implements SearchMethod {
 

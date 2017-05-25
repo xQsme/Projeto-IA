@@ -1,8 +1,9 @@
 package searchmethods;
 
 import agent.State;
-import java.util.List;
 import utils.NodePriorityQueue;
+
+import java.util.List;
 
 public class UniformCostSearch extends GraphSearch<NodePriorityQueue> {
 

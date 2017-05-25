@@ -3,6 +3,7 @@ package searchmethods;
 import agent.Problem;
 import agent.Solution;
 import agent.State;
+
 import java.util.List;
 
 public class IDAStarSearch extends InformedSearch {

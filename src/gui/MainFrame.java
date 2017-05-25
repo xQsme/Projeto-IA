@@ -5,31 +5,18 @@ import agent.Solution;
 import forkliftpuzzle.ForkliftPuzzleAgent;
 import forkliftpuzzle.ForkliftPuzzleProblem;
 import forkliftpuzzle.ForkliftPuzzleState;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
+import searchmethods.BeamSearch;
+import searchmethods.DepthLimitedSearch;
+import searchmethods.SearchMethod;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.util.NoSuchElementException;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.SwingWorker;
-import searchmethods.BeamSearch;
-import searchmethods.DepthLimitedSearch;
-import searchmethods.SearchMethod;
 
 public class MainFrame extends JFrame {
 

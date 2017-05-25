@@ -1,7 +1,8 @@
 package agent;
 
-import java.util.ArrayList;
 import searchmethods.*;
+
+import java.util.ArrayList;
 
 public class Agent<E extends State> {
 

@@ -1,8 +1,9 @@
 package searchmethods;
 
 import agent.State;
-import java.util.List;
 import utils.NodeLinkedList;
+
+import java.util.List;
 
 public class BreadthFirstSearch extends GraphSearch<NodeLinkedList> {
 

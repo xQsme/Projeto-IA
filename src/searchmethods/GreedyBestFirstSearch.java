@@ -1,6 +1,7 @@
 package searchmethods;
 
 import agent.State;
+
 import java.util.List;
 
 public class GreedyBestFirstSearch extends InformedSearch {
