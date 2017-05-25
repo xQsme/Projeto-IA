@@ -14,6 +14,8 @@ public class ForkliftPuzzleAgent extends Agent<ForkliftPuzzleState>{
         heuristics.add(new HeuristicTileDistance());
         heuristics.add(new HeuristicOccupiedTiles());
         heuristics.add(new HeuristicOcupiedAndDistance());
+        heuristics.add(new HeuristicSizeObjectsOnPath());
+        heuristics.add(new HeuristicOccupiedRightSide());
         heuristic = heuristics.get(0);
     }
             

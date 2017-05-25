@@ -80,12 +80,10 @@ public class ForkliftPuzzleState extends State implements Cloneable {
     public void moveUp(int id) {
         int position[]=findById(id);
         int count=1;
+        int max=(matrix[position[0]][position[1]]%10-1)/2;
         for(int i = 1; i < getNumLines(); i++){
-            if(position[0]+i < getNumLines()){
-                if(matrix[position[0]+i][position[1]]%10 == matrix[position[0]][position[1]]%10)
-                    count++;
-                else
-                    break;
+            if(position[0]+i < getNumLines() && matrix[position[0]+i][position[1]]%10 == matrix[position[0]][position[1]]%10 && count != max){
+                count++;
             }else{
                 break;
             }
@@ -98,14 +96,13 @@ public class ForkliftPuzzleState extends State implements Cloneable {
     }
 
     public void moveRight(int id) {
-        int position[]=findById(id); //1,3
+        int position[]=findById(id);
         int count=1;
+        int max=matrix[position[0]][position[1]]%10/2;
         for(int i = 1; i < getNumColumns(); i++){
-            if(position[1]-i >= 0){
-                if(matrix[position[0]][position[1]-i]%10 == matrix[position[0]][position[1]]%10)
-                    count++;
-                else
-                    break;
+            if(position[1]-i >= 0 && matrix[position[0]][position[1]-i]%10 ==
+                        matrix[position[0]][position[1]]%10 && count != max){
+                count++;
             }else{
                 break;
             }
@@ -123,12 +120,11 @@ public class ForkliftPuzzleState extends State implements Cloneable {
     public void moveDown(int id) {
         int position[]=findById(id);
         int count=1;
+        int max=(matrix[position[0]][position[1]]%10-1)/2;
         for(int i = 1; i < getNumLines(); i++){
-            if(position[0]-i >= 0){
-                if(matrix[position[0]-i][position[1]]%10 == matrix[position[0]][position[1]]%10)
-                    count++;
-                else
-                    break;
+            if(position[0]-i >= 0 && matrix[position[0]-i][position[1]]%10 ==
+                        matrix[position[0]][position[1]]%10 && count != max){
+                count++;
             }else{
                 break;
             }
@@ -143,12 +139,11 @@ public class ForkliftPuzzleState extends State implements Cloneable {
     public void moveLeft(int id) {
         int position[]=findById(id);
         int count=1;
+        int max=matrix[position[0]][position[1]]%10/2;
         for(int i = 1; i < getNumColumns(); i++){
-            if(position[1]+i < getNumColumns()){
-                if(matrix[position[0]][position[1]+i]%10 == matrix[position[0]][position[1]]%10)
-                    count++;
-                else
-                    break;
+            if(position[1]+i < getNumColumns() && matrix[position[0]][position[1]+i]%10 ==
+                                        matrix[position[0]][position[1]]%10 && count != max){
+                count++;
             }else{
                 break;
             }
@@ -171,13 +166,45 @@ public class ForkliftPuzzleState extends State implements Cloneable {
         return matrix[0].length;
     }
 
+    public double computeOccupiedRight(){
+        double h = 0;
+        for(int i = 0; i<getNumLines(); i++){
+            for(int j = getNumColumns()/2-1; j<getNumColumns(); j++){
+                if(matrix[i][j] > 1)
+                    h++;
+            }
+        }
+        return h;
+    }
+
+    public double computeSizeObjectsOnPath(){
+        double h = 0;
+        for (int i = columnForklift+1; i < getNumColumns(); i++) {
+            for(int j=lineForklift+1; j< getNumLines(); j++) {
+                if (matrix[j][i] == matrix[lineForklift][i]) {
+                    h++;
+                } else {
+                    break;
+                }
+            }
+            for(int j=lineForklift; j >= 0; j--) {
+                if (matrix[j][i] == matrix[lineForklift][i]) {
+                    h++;
+                } else {
+                    break;
+                }
+            }
+        }
+        return h;
+    }
+
     public double computeOccupiedAndDistance(){
         return computeOccupiedTiles()+computeDistance();
     }
 
     public double computeOccupiedTiles() {
         double h = 0;
-        for (int i = lineForklift+1; i < getNumColumns(); i++) {
+        for (int i = columnForklift+1; i < getNumColumns(); i++) {
                 if (matrix[lineForklift][i] != 0) {
                     h++;
                 }
