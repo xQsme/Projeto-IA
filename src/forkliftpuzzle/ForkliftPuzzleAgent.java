@@ -44,7 +44,7 @@ public class ForkliftPuzzleAgent extends Agent<ForkliftPuzzleState>{
         if(linha != -1)
             matrix[linha][size-1]=-1;
 
-        initialEnvironment = new ForkliftPuzzleState(matrix, true);
+        initialEnvironment = new ForkliftPuzzleState(matrix, null);
         resetEnvironment();
 
         return environment;

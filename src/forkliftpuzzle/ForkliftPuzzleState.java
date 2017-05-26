@@ -9,30 +9,30 @@ import java.util.Arrays;
 public class ForkliftPuzzleState extends State implements Cloneable {
 
     private int[][] matrix;
+    private int[][] ids;
     private int lineForklift;
     private int columnForklift;
 
-    public ForkliftPuzzleState(int[][] matrix, boolean first) {
+    public ForkliftPuzzleState(int[][] matrix, int[][] ids) {
         this.matrix = new int[matrix.length][matrix[0].length];
-        int[] count = new int[11];
-        if(first) {
+        this.ids = new int[matrix.length][matrix[0].length];
+        if(ids == null) {
+            int id=0;
             for (int i = 0; i < getNumLines(); i++) {
                 for (int j = 0; j < getNumColumns(); j++) {
-                    if(matrix[i][j] < 2) {
-                        this.matrix[i][j] = matrix[i][j];
-                        if (matrix[i][j] == 1) {
-                            lineForklift = i;
-                            columnForklift = j;
-                        }
+                    this.matrix[i][j] = matrix[i][j];
+                    this.ids[i][j] = id++;
+                    if (matrix[i][j] == 1) {
+                        lineForklift = i;
+                        columnForklift = j;
                     }
-                    else
-                        this.matrix[i][j] = matrix[i][j] + 10*count[matrix[i][j]+1]++;
                 }
             }
         }else{
             for (int i = 0; i < getNumLines(); i++) {
                 for (int j = 0; j < getNumColumns(); j++) {
                     this.matrix[i][j] = matrix[i][j];
+                    this.ids[i][j] = ids[i][j];
                     if (matrix[i][j] == 1) {
                         lineForklift = i;
                         columnForklift = j;
@@ -80,22 +80,26 @@ public class ForkliftPuzzleState extends State implements Cloneable {
      */
     public void moveUp(int id) {
         int position[]=findById(id);
-        int i, count=(matrix[position[0]][position[1]]%10-1)/2;
+        int i, count=(matrix[position[0]][position[1]]-1)/2;
         for(i = 0; i < count; i++){
             matrix[position[0]-1+i][position[1]] = matrix[position[0]+i][position[1]];
+            ids[position[0]-1+i][position[1]] = ids[position[0]+i][position[1]];
         }
         matrix[position[0]+i-1][position[1]] = 0;
+        ids[position[0]+i-1][position[1]] = 36;
     }
 
     public void moveRight(int id) {
         int position[]=findById(id);
-        int i, count=Math.round(matrix[position[0]][position[1]]%10/2);
+        int i, count=Math.round(matrix[position[0]][position[1]]/2);
         if(count == 0)
             count++;
         for(i = 0; i < count; i++){
             matrix[position[0]][position[1]+1-i] = matrix[position[0]][position[1]-i];
+            ids[position[0]][position[1]+1-i] = ids[position[0]][position[1]-i];
         }
         matrix[position[0]][position[1]-i+1] = 0;
+        ids[position[0]][position[1]-i+1] = 36;
         if (matrix[position[0]][position[1]+1] == 1) {
             columnForklift = position[1]+1;
         }
@@ -103,22 +107,26 @@ public class ForkliftPuzzleState extends State implements Cloneable {
 
     public void moveDown(int id) {
         int position[]=findById(id);
-        int i, count=(matrix[position[0]][position[1]]%10-1)/2;
+        int i, count=(matrix[position[0]][position[1]]-1)/2;
         for(i = 0; i < count; i++){
             matrix[position[0]+1-i][position[1]] = matrix[position[0]-i][position[1]];
+            ids[position[0]+1-i][position[1]] = ids[position[0]-i][position[1]];
         }
         matrix[position[0]-i+1][position[1]] = 0;
+        ids[position[0]-i+1][position[1]] = 36;
     }
 
     public void moveLeft(int id) {
         int position[]=findById(id);
-        int i, count=matrix[position[0]][position[1]]%10/2;
+        int i, count=matrix[position[0]][position[1]]/2;
         if(count == 0)
             count++;
         for(i = 0; i < count; i++){
             matrix[position[0]][position[1]-1+i] = matrix[position[0]][position[1]+i];
+            ids[position[0]][position[1]-1+i] = ids[position[0]][position[1]+i];
         }
         matrix[position[0]][position[1]+i-1] = 0;
+        ids[position[0]][position[1]+i-1] = 36;
         if (matrix[position[0]][position[1]-1] == 1) {
             columnForklift = position[1]-1;
         }
@@ -227,7 +235,7 @@ public class ForkliftPuzzleState extends State implements Cloneable {
 
     @Override
     public Object clone() {
-        return new ForkliftPuzzleState(matrix, false);
+        return new ForkliftPuzzleState(matrix, ids);
     }
     //Listeners
     private transient ArrayList<ForkliftPuzzleListener> listeners = new ArrayList<ForkliftPuzzleListener>(3);
@@ -250,21 +258,32 @@ public class ForkliftPuzzleState extends State implements Cloneable {
         }
     }
 
-    public ArrayList<Integer> getPieces() {
-        ArrayList<Integer> pieces=new ArrayList<>();
+    public ArrayList<Integer> getTypes() {
+        ArrayList<Integer> types=new ArrayList<>();
         for (int i = 0; i < getNumLines(); i++) {
             for (int j = 0; j < getNumColumns(); j++) {
                 if(matrix[i][j] > 0)
-                    pieces.add(matrix[i][j]);
+                    types.add(matrix[i][j]);
             }
         }
-        return pieces;
+        return types;
+    }
+
+    public ArrayList<Integer> getIds() {
+        ArrayList<Integer> idArray=new ArrayList<>();
+        for (int i = 0; i < getNumLines(); i++) {
+            for (int j = 0; j < getNumColumns(); j++) {
+                if(matrix[i][j] > 0)
+                    idArray.add(ids[i][j]);
+            }
+        }
+        return idArray;
     }
 
     private int[] findById(int id){
         for (int i = 0; i < getNumLines(); i++){
             for(int j = 0; j < getNumColumns(); j++){
-                if(matrix[i][j] == id){
+                if(ids[i][j] == id){
                     return new int[]{i, j};
                 }
             }

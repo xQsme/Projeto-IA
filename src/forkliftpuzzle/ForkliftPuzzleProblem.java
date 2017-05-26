@@ -9,20 +9,24 @@ import java.util.List;
 
 public class ForkliftPuzzleProblem extends Problem<ForkliftPuzzleState> {
 
-    ArrayList<Integer> pieces;
+
 
     public ForkliftPuzzleProblem(ForkliftPuzzleState initialState) {
         super(initialState, new ArrayList<Action>());
-         pieces = new ArrayList<>();
-         pieces = initialState.getPieces();
-         for(int piece : pieces){
-             if(piece == 1 || piece%10%2 == 0){
-                 actions.add(new ActionLeft(piece));
-                 actions.add(new ActionRight(piece));
-             }else{
-                 actions.add(new ActionUp(piece));
-                 actions.add(new ActionDown(piece));
-             }
+        ArrayList<Integer> types;
+        ArrayList<Integer> ids;
+        types = initialState.getTypes();
+        ids = initialState.getIds();
+        int i = 0;
+        for(int type : types){
+            int id=ids.get(i++);
+            if(type == 1 || type%2 == 0){
+                 actions.add(new ActionLeft(id));
+                 actions.add(new ActionRight(id));
+            }else{
+                 actions.add(new ActionUp(id));
+                 actions.add(new ActionDown(id));
+            }
         }
     }
     
