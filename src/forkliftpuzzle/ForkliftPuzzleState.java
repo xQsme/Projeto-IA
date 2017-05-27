@@ -91,7 +91,7 @@ public class ForkliftPuzzleState extends State implements Cloneable {
 
     public void moveRight(int id) {
         int position[]=findById(id);
-        int i, count=Math.round(matrix[position[0]][position[1]]/2);
+        int i, count=matrix[position[0]][position[1]]/2;
         if(count == 0)
             count++;
         for(i = 0; i < count; i++){
