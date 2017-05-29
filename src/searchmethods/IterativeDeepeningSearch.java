@@ -45,6 +45,7 @@ public class IterativeDeepeningSearch extends DepthFirstSearch {
         while (!frontier.isEmpty() && !stopped) {
             Node n = frontier.poll();
             if (n.getDepth() == limit && problem.isGoal(n.getState())) {
+                statistics.end();
                 return new Solution(problem, n);
             }
 
