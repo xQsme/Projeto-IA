@@ -93,17 +93,14 @@ public class Agent<E extends State> {
     public String getSearchReport() {
         StringBuilder sb = new StringBuilder();
         sb.append(searchMethod + "\n");
-        if (solution == null) {
+        if (solution == null)
             sb.append("No solution found\n");
-        } else {
+        else
             sb.append("Solution cost: " + Integer.toString(solution.getCost()) + "\n");
-        }
         sb.append("Num of expanded nodes: " + searchMethod.getStatistics().numExpandedNodes + "\n");
         sb.append("Max frontier size: " + searchMethod.getStatistics().maxFrontierSize + "\n");
         sb.append("Num of generated nodes: " + searchMethod.getStatistics().numGeneratedNodes + "\n");
-        if(searchMethod instanceof BeamSearch && ((BeamSearch) searchMethod).getBeamSize() == 0)
-            sb.append("Elapsed time: 0 ms");
-        else
+        if (solution != null)
             sb.append("Elapsed time: " + String.valueOf(Math.round(searchMethod.getStatistics().time)) + " ms\n");
 
         return sb.toString();

@@ -23,6 +23,7 @@ public class DepthFirstSearch extends GraphSearch<NodeLinkedList> {
         while(!frontier.isEmpty() && !stopped){
             Node n= frontier.poll();
             if (problem.isGoal(n.getState())){
+                statistics.end();
                 return new Solution(problem, n);
             }
            
@@ -31,6 +32,7 @@ public class DepthFirstSearch extends GraphSearch<NodeLinkedList> {
             computeStatistics(successors.size());
             
         }
+        statistics.end();
         return null;
     }
 

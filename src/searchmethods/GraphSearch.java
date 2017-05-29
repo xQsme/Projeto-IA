@@ -53,6 +53,7 @@ public abstract class GraphSearch<L extends NodeCollection> implements SearchMet
             addSuccessorsToFrontier(successors, n);
             computeStatistics(successors.size());
         }
+        statistics.end();
         return null;
     }
 
