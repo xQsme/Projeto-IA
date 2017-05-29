@@ -39,6 +39,7 @@ public class IDAStarSearch extends InformedSearch {
         while (!frontier.isEmpty() && !stopped) {
             Node n = frontier.poll();
             if ( problem.isGoal(n.getState())) {
+                statistics.end();
                 return new Solution(problem, n);
             }
 

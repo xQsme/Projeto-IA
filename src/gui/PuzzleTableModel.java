@@ -33,7 +33,7 @@ public class PuzzleTableModel extends AbstractTableModel implements ForkliftPuzz
     public void puzzleChanged(ForkliftPuzzleEvent pe){
         fireTableDataChanged();
         try{
-            Thread.sleep(500);
+            Thread.sleep(250);
         }catch(InterruptedException ignore){
         }
     }
