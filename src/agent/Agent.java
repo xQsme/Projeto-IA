@@ -101,7 +101,10 @@ public class Agent<E extends State> {
         sb.append("Num of expanded nodes: " + searchMethod.getStatistics().numExpandedNodes + "\n");
         sb.append("Max frontier size: " + searchMethod.getStatistics().maxFrontierSize + "\n");
         sb.append("Num of generated nodes: " + searchMethod.getStatistics().numGeneratedNodes + "\n");
-        sb.append("Elapsed time: " + String.format("%.0f", searchMethod.getStatistics().time) + " ms\n");
+        if(searchMethod instanceof BeamSearch && ((BeamSearch) searchMethod).getBeamSize() == 0)
+            sb.append("Elapsed time: 0 ms");
+        else
+            sb.append("Elapsed time: " + String.valueOf(Math.round(searchMethod.getStatistics().time)) + " ms\n");
 
         return sb.toString();
     }
