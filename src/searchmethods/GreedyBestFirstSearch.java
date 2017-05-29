@@ -1,7 +1,6 @@
 package searchmethods;
 
 import agent.State;
-
 import java.util.List;
 
 public class GreedyBestFirstSearch extends InformedSearch {
@@ -14,11 +13,10 @@ public class GreedyBestFirstSearch extends InformedSearch {
                 if (!explored.contains(s)) {
                     frontier.add(new Node(s, parent, g, heuristic.compute(s)));
                 }
-            }else if (frontier.getNode(s).getG()>g){
+            } else if (frontier.getNode(s).getG() > g) {
                 frontier.removeNode(s);
-                frontier.add(new Node (s, parent, g, heuristic.compute(s)));
+                frontier.add(new Node(s, parent, g, heuristic.compute(s)));
             }
-
         }
     }
 

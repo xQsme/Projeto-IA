@@ -1,7 +1,6 @@
 package searchmethods;
 
 import agent.State;
-
 import java.util.List;
 
 public class DepthLimitedSearch extends DepthFirstSearch {
@@ -18,8 +17,9 @@ public class DepthLimitedSearch extends DepthFirstSearch {
 
     @Override
     public void addSuccessorsToFrontier(List<State> successors, Node parent) {
-        if (parent.getDepth()<limit)
+        if (parent.getDepth() < limit) {
             super.addSuccessorsToFrontier(successors, parent);
+        }
     }
 
     public int getLimit() {
