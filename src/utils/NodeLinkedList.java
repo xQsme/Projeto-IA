@@ -45,6 +45,20 @@ public class NodeLinkedList extends LinkedList<Node> implements NodeCollection {
     }
 
     @Override
+    public Node removeFirst() {
+        Node n = super.removeFirst();
+        contents.remove(n.getState());
+        return n;
+    }
+
+    @Override
+    public Node poll() {
+        Node n = super.poll();
+        contents.remove(n.getState());
+        return n;
+    }
+
+    @Override
     public boolean add(Node n) {
         contents.put(n.getState(), n);
         return super.add(n);
@@ -63,29 +77,21 @@ public class NodeLinkedList extends LinkedList<Node> implements NodeCollection {
     }
 
     @Override
-    public Node removeFirst() {
-        Node no = super.removeFirst();
-        contents.remove(no.getState());
-        return no;
-
-    }
-
-    @Override
     public Node removeLast() {
         Node no = super.removeLast();
         contents.remove(no.getState());
         return no;
     }
-    
+
     @Override
-    public boolean containsState(State e){
+    public boolean containsState(State e) {
         return contents.containsKey(e);
     }
-    
-    public Node getNo(State e){
+
+    public Node getNo(State e) {
         return contents.get(e);
     }
-    
+
     public boolean removeNo(State e) {
         return remove(contents.get(e));
     }
