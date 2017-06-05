@@ -86,7 +86,7 @@ public class ForkliftPuzzleState extends State implements Cloneable {
             ids[position[0]-1+i][position[1]] = ids[position[0]+i][position[1]];
         }
         matrix[position[0]+i-1][position[1]] = 0;
-        ids[position[0]+i-1][position[1]] = 36;
+        ids[position[0]+i-1][position[1]] = 9999;
     }
 
     public void moveRight(int id) {
@@ -99,7 +99,7 @@ public class ForkliftPuzzleState extends State implements Cloneable {
             ids[position[0]][position[1]+1-i] = ids[position[0]][position[1]-i];
         }
         matrix[position[0]][position[1]-i+1] = 0;
-        ids[position[0]][position[1]-i+1] = 36;
+        ids[position[0]][position[1]-i+1] = 9999;
         if (matrix[position[0]][position[1]+1] == 1) {
             columnForklift = position[1]+1;
         }
@@ -113,7 +113,7 @@ public class ForkliftPuzzleState extends State implements Cloneable {
             ids[position[0]+1-i][position[1]] = ids[position[0]-i][position[1]];
         }
         matrix[position[0]-i+1][position[1]] = 0;
-        ids[position[0]-i+1][position[1]] = 36;
+        ids[position[0]-i+1][position[1]] = 9999;
     }
 
     public void moveLeft(int id) {
@@ -126,7 +126,7 @@ public class ForkliftPuzzleState extends State implements Cloneable {
             ids[position[0]][position[1]-1+i] = ids[position[0]][position[1]+i];
         }
         matrix[position[0]][position[1]+i-1] = 0;
-        ids[position[0]][position[1]+i-1] = 36;
+        ids[position[0]][position[1]+i-1] = 9999;
         if (matrix[position[0]][position[1]-1] == 1) {
             columnForklift = position[1]-1;
         }
@@ -187,7 +187,7 @@ public class ForkliftPuzzleState extends State implements Cloneable {
     }
     
     public double computeDistance() {
-        return getNumLines() - columnForklift;
+        return getNumColumns() - columnForklift - 1;
     }
 
     public int getTileValue(int line, int column) {
@@ -195,10 +195,6 @@ public class ForkliftPuzzleState extends State implements Cloneable {
             throw new IndexOutOfBoundsException("Invalid position!");
         }
         return matrix[line][column];
-    }
-
-    public boolean isValidPosition(int line, int column) {
-        return line >= 0 && line < getNumLines() && column >= 0 && column < getNumColumns();
     }
 
     @Override

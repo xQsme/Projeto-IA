@@ -1,10 +1,10 @@
 package searchmethods;
 
 public class Statistics {
-    public int numExpandedNodes;
-    public int numGeneratedNodes = 1; //due to the initial node
-    public int maxFrontierSize;
-    public double time;
+    public long numExpandedNodes;
+    public long numGeneratedNodes = 1; //due to the initial node
+    public long maxFrontierSize;
+    public long time;
     
     public void reset(){
         numExpandedNodes = 0;
@@ -14,6 +14,6 @@ public class Statistics {
     }
 
     public void end(){
-        time = (System.nanoTime()-time) / 1000000.0;
+        time = (System.nanoTime()-time) / 1000000;
     }
 }
